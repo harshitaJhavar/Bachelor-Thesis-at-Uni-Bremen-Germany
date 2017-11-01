@@ -1,0 +1,113 @@
+:- consult('dictionaryDataFinal.pl').
+:- consult('frameNounPhrase.pl').
+:- consult('frameVerbPhrase.pl').
+:- consult('grammar.pl').
+
+   generateSimultaneous([Action|OtherActions],Sentence) :- 
+						   
+							    grammar(nodeValues(Action),X),						
+							    append(['While'],[X],Y),
+							    check(OtherActions,Y,P,Q),
+							    grammar(nodeValues(Q),R), 
+							    append(['and '],[R],T),
+							    append([P],[T],Temp),
+							    linearization(Temp,Sentence).
+  
+     check([Action|OtherActions],Y,P,Z) :-  
+   
+					  (OtherActions=[] -> (P=Y,Z=Action,!);
+					   (
+					  grammar(nodeValues(Action),X),
+					  append([', '],[X],H),
+					  append([Y],[H],Q),
+					  check(OtherActions,Q,P,Z)
+					  )
+					  ).
+
+
+  linearization(P,Z) :- 	 				 flatten(P,S),                                                                                                                                                    
+							 atomic_list_concat(S,' ',Z). 	  
+    /*.    
+----------------------------------------------------------------------- 
+Because usage in sentences
+ABC saw a door because exit sign was hanging on the door*/
+
+/*Descriptive Sentences*
+There are three chairs, one door and few windows in the room.
+because
+There is a long corridor.*/
+
+/*Interrogative Sentences
+Hurray, the user finally reached the destination.*/
+
+
+/*
+
+ generate_simultaneous([Action|OtherActions],Sentence) :- 
+						   
+   
+                                                            generateSentence(nodeValues(Action),X),
+                                                            dealOtherActions(OtherActions,X,Sentence).
+                                                            
+                                                           
+dealOtherActions([Action|OtherActions],[H|T],Sentence):-
+                                           
+					   generateSentence(nodeValues(Action),A),
+					   concat(', ',A,Z),
+					   P = [X|Z],
+					   
+					   (OtherActions=[]->
+					                     Z='. ',  ,!
+					                     ;
+					                     
+					                     dealOtherActions(OtherActions,[P|R])
+					   ).                  
+					   
+                                                            
+
+*/
+
+
+
+
+
+
+
+/*While-And usage in sentences.
+Example1: generate_simultaneous([[fat,woman,quickly,climb,[],[],staircase,to,top,floor,simple_present],
+[fat,woman,quickly,climb,[],[],staircase,to,top,floor,simple_present]],Sentence).
+*/
+
+/*
+
+generate_simultaneous([Action|OtherActions],Sentence) :- generateSentence(nodeValues(Action),X),
+						   concat('While ',X,Y), 
+						  
+						   check(OtherActions,OtherActions,Sentence).
+						   
+   
+   comma_positioning([Action|OtherActions],Sentence) :-
+						( OtherActions = []
+						
+					                     ->  (generateSentence(nodeValues(Action),X),
+								  concat('and ',X,Y))
+								  
+					                     ;   (generateSentence(nodeValues(Action),X),
+								  concat(', ',X,Y),
+								  comma_positioning(OtherActions,Sentence))).
+
+  check(Z,[Action|OtherActions],Sentence) :- 								  
+				( OtherActions = []
+				->  (generateSentence(nodeValues(Action),X),
+								  concat(', ',X,Y)))			
+				; comma_positioning(Z).
+				  
+--------------------------------------------------------------------
+   (H=[] -> 
+   append([', '],[R],S),
+   append([Y],[S],Sentence);
+   (
+   append([Y],[H],P),
+   append(['and '],[R],S)),
+   append([P],[S],Sentence)).
+*/

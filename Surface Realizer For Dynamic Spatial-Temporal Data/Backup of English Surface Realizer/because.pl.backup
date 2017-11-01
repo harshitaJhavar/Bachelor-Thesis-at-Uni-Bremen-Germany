@@ -1,0 +1,21 @@
+:- consult('generateSentence.pl').
+:- consult('frameNounPhrase.pl').
+:- consult('frameVerbPhrase.pl').
+
+/*While-And usage in sentences.
+Example1: generateDependentText([
+      [[],'Barbara',[],walk,in,[],corridor,[],[],[],past_continuous],
+      [three,persons,[],pass,to,[],left,[],[],[],simple_past]
+      ],Sentence               
+     ).
+     */
+
+
+
+generateDependentText([Action,OtherActions],Sentence) :- generateSentence(nodeValues(Action),X), 
+							 concat(X,' because ',Z),
+							 generateSentence(nodeValues(OtherActions),Y),
+							 
+							 concat(Z,Y,Sentence).
+						  
+						   

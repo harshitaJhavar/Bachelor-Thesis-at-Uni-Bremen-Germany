@@ -1,0 +1,75 @@
+/*generateCompleteSummary(barbara,mehul,barbara,X,Y,Y2,Z,Z2,simple_past).
+*/
+:- consult('dictionaryDataFinal.pl').
+:- consult('barbaraExperimentData.pl').
+:- consult('mehulExperimentData.pl').
+:- consult('domainDescription.pl').
+:- consult('generateSentence.pl').
+:- consult('generateSimultaneousInteractionText.pl').
+
+  
+generatePossibleSentences(Subject1,Subject2,Subject3,Simple,Compound,Compound2,Complex,Complex2,Tense):-generateSimpleSentence(Subject1,Simple,Tense),
+													generateCompoundSentence(Subject2,Subject1,Compound,Tense),
+													generateCompoundSentence(Subject2,Subject1,Compound2,Tense),
+													generateComplexSentence(Subject3,Subject1,Complex,T),
+													generateComplexSentence(Subject3,Subject1,Complex2,T).
+				   
+				     
+generateSimpleSentence(Subject,X,Tense):-
+				     action(Subject,Action,Object,_), 
+				     actionInformation(Subject,Adverb,Action), 
+				     objectInformation(Adj,Object), 
+				     objectSpatialRelation(Subject,Prep,Object), 
+				     generateSentence([[],Subject,Adverb,Action,Prep,Adj,Object,[],[],[],Tense],X).
+				     
+generateComplexSentence(Subject1,Y,Tense):-
+                                               action(Subject1,Action1,Object1,Time), 
+                                               action(Subject2,Action2,Object2,Time),
+                                               (Subject1 \= Subject2),
+				               actionInformation(Subject1,Adverb1,Action1), 
+				               objectInformation(Adj1,Object1), 
+				               objectSpatialRelation(Subject1,Prep1,Object1), 
+				               
+				               actionInformation(Subject2,Adverb2,Action2), 
+				               objectInformation(Adj2,Object2), 
+				               objectSpatialRelation(Subject2,Prep2,Object2),
+
+				               generateSimultaneous([
+						                    [[],Subject1,Adverb1,Action1,Prep1,Adj1,Object1,[],[],[],present_continuous],
+					                            [[],Subject2,Adverb2,Action2,Prep2,Adj2,Object2,[],[],[],Tense]
+					                             ],Y).
+
+generateCompoundSentence(Subject1,Subject2,P,Tense) :- 
+							
+							compound(action(Subject1,Action1,Object1,_),action(Subject2,Action2,Object2,_)),
+							
+							actionInformation(Subject1,Adverb1,Action1), 
+							objectInformation(Adj1,Object1), 
+							objectSpatialRelation(Subject1,Prep1,Object1),
+							
+							actionInformation(Subject2,Adverb2,Action2), 
+							objectInformation(Adj2,Object2), 
+							objectSpatialRelation(Subject2,Prep2,Object2),
+							
+							generateSentence([[],Subject1,Adverb1,Action1,Prep1,Adj1,Object1,[],[],[],Tense],X),
+							
+							generateSentence([[],Subject2,Adverb2,Action2,Prep2,Adj2,Object2,[],[],[],Tense],Y),
+							
+							concat(X,' and ',Z),
+							concat(Z,Y,P).					       
+				               
+generateSummary(Subject,Tense,Simple,Complex,Compound):- findall([S2],generateSimpleSentence(Subject,S2, Tense), Simple),
+					 findall([S],generateCompoundSentence(Subject,_,S, Tense), Compound), 
+					 findall([S3],generateComplexSentence(Subject, S3, Tense), Complex).
+
+
+%findall([S2],generateSimpleSentence(barbara,S2, simple_past), Simple),findall([S],generateCompoundSentence(barbara,_,S, simple_past), Compound), findall([S3],  generateComplexSentence(barbara, S3, simple_present), Complex).
+
+				               
+%findall([S],generateCompoundSentence(mehul,_,S, simple_past), L), findall([S2], generateSimpleSentence(mehul,S2, simple_past), L2), setof([S2], generateComplexSentence(_, _, S2, T), L2).
+
+% findall([S],generateCompoundSentence(mehul,_,S, simple_past), L), findall([S2], generateSimpleSentence(mehul,S2, simple_past), L2), setof([S3, P, T], generateComplexSentence(mehul, P, S3, T), L3).
+
+%findall([S2],generateSimpleSentence(barbara,S2, simple_past), L2),findall([S],generateCompoundSentence(barbara,_,S, simple_past), L), findall([S3],  setof([S3], generateComplexSentence(barbara, S3, simple_present), L3).
+
+ 

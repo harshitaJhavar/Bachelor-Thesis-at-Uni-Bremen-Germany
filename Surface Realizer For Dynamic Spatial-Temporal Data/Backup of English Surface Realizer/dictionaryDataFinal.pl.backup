@@ -1,0 +1,66 @@
+/*			      Determiner, 
+			      Subject_adjective, 
+			      Subject_noun, 
+			      Auxillary_verb_according_to_tense, 
+			      Adverb_of_main_verb, 
+			      Main_verb, 
+			      Preposition_between_verb_and_object_1, 
+			      Adjective_of_object_1, 
+			      Noun_of_object_1,
+			      Preposition_between_object1_object2, 
+			      Adjective_of_object_2, 
+			      Noun_of_object_2*/
+
+/*Living nouns*/
+/*livingNoun*/
+
+noun('Barbara',living).
+noun('Mehul', living).
+noun(persons, living).
+noun(person, living).
+noun(user, living).
+
+/*Non-Living nouns or indefinite plural nouns*/
+/* Those nouns which are landmark points are specific*/
+
+noun(name, definiteNonLiving).
+noun(recording, definiteNonLiving).
+noun(hospital, definiteNonLiving).
+noun(chairs, definiteNonLiving).
+noun(trashbins, definiteNonLiving).
+noun(sign, definiteNonLiving).
+noun(corridor, definiteNonLiving).
+noun(seconds, definiteNonLiving).
+noun(point, definiteNonLiving).
+noun(lobby, definiteNonLiving).
+
+/* Specifying words used in spatial dictionary as definite nouns as they are specific and fit the place of nouns in the structure of the phrase in context of object phrase*/
+noun(right, definiteNonLiving).
+noun(left, definiteNonLiving).
+noun(end, definiteNonLiving).
+
+/* Those nouns which are talked in general and are not specific */
+
+noun(door, indefiniteNonLiving).
+noun(board, indefiniteNonLiving).
+
+/*verb(RootForm, Present, Past, Continuous) */
+verb(has,has,had,having).
+verb(do,does,did,doing).
+verb(walk,walks,walked,walking).
+verb(pass,passes,passed,passing).
+verb(focus,focusses,focussed,focussing).
+verb(see,sees,saw,seeing).
+verb(turn,turns,turned,turning).
+verb(reach,reaches,reached,reaching).
+/*Try fixing it with an Obj Pred.
+verb([],[],[],[]).*/
+
+/*UpperLevelDictionary*/
+Barbara walks through the 50 metres long corridor
+
+
+
+
+
+

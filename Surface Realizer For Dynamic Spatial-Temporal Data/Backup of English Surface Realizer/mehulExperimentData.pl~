@@ -1,0 +1,22 @@
+
+/*Subject Name*/
+subject(mehul).
+
+/*action(Subject, Action, Object) of mehul*/
+action(mehul, turn, mehul,22).
+action(mehul, focus, sign,24).
+action(mehul, pass, left,15).
+action(mehul, reach,trashbins,27).
+action(mehul, see, lobby,22).
+
+/*SimultaneousAction(Subject Name, Action, Object) of mehul*/
+action(mehul,walk,corridor,24).
+action(mehul, focus, barbara,11).
+
+/*actionInformation(Subject,PropertiesOfMotion,Motion) for mehul*/
+actionInformation(mehul,quickly,walk).
+actionInformation(mehul,[],pass).
+actionInformation(mehul,[],focus).
+actionInformation(mehul,[],turn).
+actionInformation(mehul,[],see).
+actionInformation(mehul,[],reach).

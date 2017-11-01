@@ -1,0 +1,71 @@
+:- consult('generateSentence.pl').
+:- consult('frameNounPhrase.pl').
+:- consult('frameVerbPhrase.pl').
+:- consult('dictionaryDataFinal.pl').
+/*While-And usage in sentences.
+Example1: generate_simultaneous([[fat,woman,quickly,climb,[],[],staircase,to,top,floor,simple_present],
+[fat,woman,quickly,climb,[],[],staircase,to,top,floor,simple_present]],Sentence).
+*/
+
+
+
+
+generateDescription(
+      [
+       decision,point,
+		       [
+		       [sign,board,on,[],right],
+                       [[],door,with,'Caution',sign,to,[],end],
+                       [[], corridor,to,[],right,towards,'Attrium',lobby]
+		       ],simple_present                
+     ).
+
+
+generateDescription(
+      [
+        Adjective_of_Location, Name_of_Location,
+	                                        [Object|OtherObject],Tense]:-
+	                                                                       append([Adjective_of_Location],[Name_of_Location],Location), 
+	                                                                       append(['At the'],[Location],A),
+	                                                                       append([A],[', '],B),
+	                                                                       
+	                                        
+
+   generateDescription(Location,[Action,OtherActions],Sentence) :- 
+						            
+						            
+							    check(OtherActions,I,P,Q),
+							    (OtherActions=[Q] -> (append([', '],[R],T),						            
+										  append([T],['there is'],J),
+										  append([J],[),
+										  grammar(nodeValues(Action),X),						
+										  append([J],[X],Y));
+							    (append(['and '],[R],T)),
+							    append([P],[T],Temp),
+							    linearization(Temp,Sentence).
+  
+     check([Action|OtherActions],Y,P,Z) :-  
+   
+					  (OtherActions=[] -> (P=Y,Z=Action,!);
+					   (
+					  append([', '],[Action],H),
+					  append([Y],[H],Q),
+					  check(OtherActions,Q,P,Z)
+					  )
+					  ).
+
+
+  linearization(P,Z) :- 	 				 flatten(P,S),                                                                                                                                                    
+							 atomic_list_concat(S,' ',Z). 
+   
+
+/*Because usage in sentences
+ABC saw a door because exit sign was hanging on the door*/
+
+/*Descriptive Sentences*
+There are three chairs, one door and few windows in the room.
+because
+There is a long corridor.*/
+
+/*Interrogative Sentences
+Hurray, the user finally reached the destination.*/

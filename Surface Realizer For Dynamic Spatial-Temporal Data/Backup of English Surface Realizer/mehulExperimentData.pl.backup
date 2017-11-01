@@ -1,0 +1,28 @@
+:- multifile subject/1.
+:- multifile action/4.
+:- multifile actionInformation/3.
+
+/*Subject Name*/
+subject(mehul).
+
+/*action(Subject, Action, Object) of mehul*/
+
+action(mehul, pass, trashbins,15).
+action(mehul, reach,trashbins,27).
+action(mehul, see, lobby,22).
+action(mehul, focus, barbara,11).
+
+/*SimultaneousAction(Subject Name, Action, Object) of mehul*/
+action(mehul, pass, barbara,1).
+action(mehul, turn, right,2).
+action(mehul,walk,corridor,24).
+action(mehul, focus, sign,24).
+
+
+/*actionInformation(Subject,PropertiesOfMotion,Motion) for mehul*/
+actionInformation(mehul,slowly,walk).
+actionInformation(mehul,[],pass).
+actionInformation(mehul,[],focus).
+actionInformation(mehul,[],turn).
+actionInformation(mehul,[],see).
+actionInformation(mehul,[],reach).

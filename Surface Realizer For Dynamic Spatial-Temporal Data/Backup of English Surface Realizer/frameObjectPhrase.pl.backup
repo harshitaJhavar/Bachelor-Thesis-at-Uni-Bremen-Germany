@@ -1,0 +1,25 @@
+	                                            
+						    
+	       frameObjectPhrase(
+				 [Object|OtherObject],
+			         Object_noun_phrase_1) :-   frame(Object,X),						
+							    check(OtherObject,X,P,Q),
+							    grammar(nodeValues(Q),R), 
+							    append(['and '],[R],T),
+							    append([P],[T],Temp),
+							    printProper(Temp,Sentence).
+  
+     frame([	Noun_of_object,
+		Adjective_of_object, 
+	        Preposition_between_object1_object2,						    
+							    
+     check([Object|OtherObject],Y,P,Z) :-  
+   
+					  (OtherObject=[] -> (P=Y,Z=Object,!);
+					   (
+					  grammar(nodeValues(Object),X),
+					  append([', '],[X],H),
+					  append([Y],[H],Q),
+					  check(OtherActions,Q,P,Z)
+					  )
+					  ).

@@ -1,0 +1,35 @@
+:- multifile subject/1.
+:- multifile action/4.
+:- multifile actionInformation/3.
+
+/*Subject Name*/
+subject(barbara).
+
+/*action(Subject, Action, Object) of barbara*/
+action(barbara, pass, mehul,2).
+action(barbara, focus, sign,4).
+action(barbara, turn, left,5).
+action(barbara,see,trashbins,7).
+action(barbara, reach, lobby,9).
+action(barbara, pass, mehul,2).
+action(barbara, focus, sign,4).
+action(barbara, turn, left,5).
+action(barbara,see,trashbins,7).
+action(barbara, reach, lobby,9).
+
+/*SimultaneousAction(Subject Name, Action, Object) of barbara*/
+action(barbara,walk,corridor,1).
+action(mehul, pass, barbara,1).
+
+
+compound(action(barbara, pass, mehul, 2), action(mehul, reach, sign, 5)).
+compound(action(barbara, turn, mehul, 2), action(mehul, pass, sign, 5)).
+compound(action(barbara, see, mehul, 2), action(mehul, turn, sign, 5)).
+
+/*actionInformation(Subject,PropertiesOfMotion,Motion) for barbara*/
+actionInformation(barbara,quickly,walk).
+actionInformation(barbara,[],pass).
+actionInformation(barbara,[],focus).
+actionInformation(barbara,[],turn).
+actionInformation(barbara,[],see).
+actionInformation(barbara,[],reach).
